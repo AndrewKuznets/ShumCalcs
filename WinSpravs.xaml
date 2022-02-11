@@ -1,0 +1,85 @@
+﻿<UserControl x:Name="SpravsWindow" x:Class="ShumCalcs.WinSpravs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShumCalcs"
+             mc:Ignorable="d" 
+             d:DesignHeight="320" d:DesignWidth="500" Loaded="SpravsWindow_Loaded" MouseDoubleClick="SpravsWindow_MouseDoubleClick">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="12*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lblTreeSpravs" Content="Дерево справочников" Margin="1,1,1,0" Grid.Row="0" Grid.Column="0"  FontWeight="Bold" HorizontalAlignment="Left" Width="163" />
+        <TreeView x:Name="treeSpravs" Margin="2,2,4,3" Grid.Row="1" Grid.Column="0" MouseLeftButtonUp="treeSpravs_MouseLeftButtonUp" >
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="contextMenuTreeInsert" Header = "Добавить справочник" Click="contextMenuTreeInsert_Click"  />
+                    <MenuItem x:Name="contextMenuTreeDel" Header = "Удалить справочник" Click="contextMenuTreeDel_Click" />
+                    <MenuItem x:Name="contextMenuTreeAddSprav" Header = "Добавить объект справочника" Click="contextMenuTreeAddSprav_Click" />
+                </ContextMenu>
+            </TreeView.ContextMenu>
+        </TreeView>
+
+        <DataGrid x:Name="dataGridParamSprav" Grid.Column="2" Margin="5,2,10,3" Grid.Row="1" RowHeight="20" IsReadOnly="True" MouseDoubleClick="dataGridParamSprav_MouseDoubleClick"  >
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header = "Изменить значение параметра" Click= "btnSpravObjEdit_Click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+
+        <GridSplitter x:Name="gridSplitter" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,1,0,1" Grid.RowSpan="2" Background="#FF1BD65A" Grid.Row="1"/>
+
+        <DockPanel x:Name="SpravsGenerPanel" LastChildFill="False" Margin="1" Grid.Row="2">
+            <Button x:Name="btnSpravsCreate" VerticalAlignment="Stretch" Content="Создать дерево &#xa;справочников" Width="92" FontSize="11" 
+                    Margin="1" ToolTip="Создать дерево справочников заново" Click="btnSpravsCreate_Click" IsEnabled="True"/>
+            <Button x:Name="btnSpravsAdd" VerticalAlignment="Stretch" 
+                Content="Добавить &#xa;справочник" Width="75" Margin="1" FontSize="11"
+                    ToolTip="Добавить справочник в отмеченный справочник" Click="btnSpravsAdd_Click"/>
+            <Button x:Name="btnSpravObjAdd" VerticalAlignment="Stretch" 
+                Content="Добавить объект&#xa;справочника" Width="115" Margin="1" FontSize="11" ToolTip="Добавить объект в отмеченый справочник" Click="btnSpravObjAdd_Click"/>
+
+            <Button x:Name="btnSpravsItemDel" VerticalAlignment="Stretch" 
+                    Content="Удалить" Width="60" Margin="1" FontSize="11" ToolTip="Удалить справочник или объект справочника" 
+                    Click="btnSpravsItemDel_Click"/>
+        </DockPanel>
+
+        <Label x:Name="lblParsObjSpravs" Content="Параметры объекта справочника" Grid.Column="2" Margin="1,1,1,0" FontWeight="Bold" />
+
+        <DockPanel x:Name="ObjSpravPars" LastChildFill="False" Margin="1" Grid.Row="2" Grid.Column="2">
+            <Button x:Name="btnSpravObjEdit" Content="Изменить значение&#xa;параметра" Width="111" Margin="1"
+                    FontSize="11" ToolTip="Изменить значение параметра в отмеченном справочнике" Click="btnSpravObjEdit_Click"/>
+        </DockPanel>
+
+        <StatusBar x:Name="StatusBarSpravs" Margin="2,1,5,3" Grid.Row="3" Width="Auto" Height="auto" VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" OpacityMask="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <StatusBar.Foreground>
+                <ImageBrush/>
+            </StatusBar.Foreground>
+            <StatusBar.Effect>
+                <DropShadowEffect/>
+            </StatusBar.Effect>
+            <StatusBar.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDA6F6F" Offset="0.052"/>
+                    <GradientStop Color="#FFDC8181" Offset="1"/>
+                </LinearGradientBrush>
+            </StatusBar.Background>
+            <Label x:Name="lblUserPars" Content="User:" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                   Height="18" Width="auto" Padding="1"/>
+            <Label x:Name="lblServerPars" Content="Сервер: SRV-SD"  HorizontalAlignment="Left" VerticalAlignment="Stretch" 
+                   Height="18" Width="auto" Padding="1"/>
+        </StatusBar>
+
+    </Grid>
+</UserControl>

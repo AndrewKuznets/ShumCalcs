@@ -1,0 +1,86 @@
+﻿<UserControl x:Name="CalcsWindow" x:Class="ShumCalcs.WinShumCalcs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShumCalcs"
+        mc:Ignorable="d"  
+        d:DesignHeight="300" d:DesignWidth="500" Loaded="CalcsWindow_Loaded" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lblTreeTrudCalcs" Content="Дерево расчётов уровней шума" Margin="1,1,0,0.2" Grid.Row="0" Grid.Column="0"  FontWeight="Bold" HorizontalAlignment="Left" Width="Auto" />
+        <TreeView x:Name="treeTrudCalcs" Margin="2,1.8,4.2,3.8" Grid.Row="1"  Grid.RowSpan="3" Grid.Column="0" MouseLeftButtonUp="treeTrudCalcs_MouseLeftButtonUp" >
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="contextMenuTreeAddSprav" Header = "Удалить объект и его потомков" />
+                </ContextMenu>
+            </TreeView.ContextMenu>
+        </TreeView>
+
+        <DataGrid x:Name="dataGridParsTrudCalc" Grid.Column="2"  IsReadOnly="True" Margin="6.2,27,5,0.2" Grid.RowSpan="2" MouseDoubleClick="dataGridParsTrudCalc_MouseDoubleClick" LoadingRow="dataGridParsTrudCalc_LoadingRow"   >
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header = "Изменить значение параметра" Click="MenuItem_Click"  />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+
+        <!--Вертикальный сплиттер-->
+        <GridSplitter x:Name="gridSplitterVer" HorizontalAlignment="Center" VerticalAlignment="Stretch"  Background="#FF1BD65A"  Grid.Row="1" Width="3"
+                      Grid.RowSpan="4" Grid.Column="1" />
+        <DockPanel x:Name="TrudCalcsGenerPanel" LastChildFill="False" Margin="0,0.6,0.2,-1" Grid.Row="4">
+            <Button x:Name="btnTreeTrudCalcsCreate" VerticalAlignment="Stretch" Content="Создать дерево &#xA;расчётов " Width="auto"
+                    FontSize="11" ToolTip="Создать дерево справочников заново" Click="btnTreeTrudCalcsCreate_Click" IsEnabled="False" />
+
+            <Button x:Name="btnTreeItemDel" VerticalAlignment="Stretch" 
+                    Content="Удалить" Width="auto" Margin="1,0,0,0" FontSize="11" ToolTip="Удалить отмеченный элемент дерева и его потомков (проекты,расчёты)" Click="btnTreeItemDel_Click" />
+
+
+        </DockPanel>
+        <Label x:Name="lblParsObj" Content="Параметры объекта расчёта" Grid.Column="2"  FontWeight="Bold" />
+   
+        <DockPanel x:Name="ObjCalsPars" LastChildFill="False"  Grid.Row="4" Grid.Column="2">
+            <Button x:Name="btnCalcsObjEdit" Content="Изменить значение &#xA;параметра" Width="auto"  FontSize="11"
+                    ToolTip="Изменить значение параметра объекта расчёта" Click="btnCalcsObjEdit_Click"/>
+            <Button x:Name="btnCalcTrudZakaz" Content="Расчёт" Width="auto"  FontSize="11" ToolTip="Расчитать уровни шумов блока" />
+        </DockPanel>
+
+        <StatusBar x:Name="StatusBarTrudCalcs" Margin="2,2,5,3" Grid.Row="5" Width="Auto" Grid.ColumnSpan="3" 
+                    Height="auto" VerticalAlignment="Top"
+                   OpacityMask="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <StatusBar.Foreground>
+                <ImageBrush/>
+            </StatusBar.Foreground>
+            <StatusBar.Effect>
+                <DropShadowEffect/>
+            </StatusBar.Effect>
+            <StatusBar.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDA6F6F" Offset="0.052"/>
+                    <GradientStop Color="#FFDC8181" Offset="1"/>
+                </LinearGradientBrush>
+            </StatusBar.Background>
+            <Label x:Name="lblUserPars" Content="User:" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                   Height="18" Width="auto" Padding="1"/>
+            <Label x:Name="lblServerPars" Content="Сервер: SRV-SD"  HorizontalAlignment="Left" VerticalAlignment="Stretch" 
+                   Height="18" Width="auto" Padding="1"/>
+        </StatusBar>
+        <!--Горизонтальный сплиттер-->
+        <GridSplitter x:Name="gridSplitterGor" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                      Background="#FF1BD65A" Height="3"  RenderTransformOrigin="0.5,0.5">
+        </GridSplitter>
+        
+    </Grid>
+</UserControl>

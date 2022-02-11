@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ShumCalcs_DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DefParams">
+          <Key>
+            <PropertyRef Name="idDefParam" />
+          </Key>
+          <Property Name="idDefParam" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDictItem" Type="int" Nullable="false" />
+          <Property Name="nameParam" Type="nchar" MaxLength="200" Nullable="false" />
+          <Property Name="codeParam" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="sortParam" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="unitParam" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="valuesParam" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Diction">
+          <Key>
+            <PropertyRef Name="idDictItem" />
+          </Key>
+          <Property Name="idDictItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameDictItem" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="imageDictItem" Type="varchar(max)" />
+          <Property Name="idParentDictItem" Type="int" />
+        </EntityType>
+        <EntityType Name="SL_CalcPars">
+          <Key>
+            <PropertyRef Name="idCalc_par" />
+          </Key>
+          <Property Name="idCalc_par" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCalcItem" Type="int" Nullable="false" />
+          <Property Name="idDefParam" Type="int" Nullable="false" />
+          <Property Name="valueCalc_par" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SL_Calcs">
+          <Key>
+            <PropertyRef Name="idCalcItem" />
+          </Key>
+          <Property Name="idCalcItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameCalcItem" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="idDictItem" Type="int" Nullable="false" />
+          <Property Name="idParentCalcItem" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_DefParams_Diction">
+          <End Role="Diction" Type="Self.Diction" Multiplicity="1" />
+          <End Role="DefParams" Type="Self.DefParams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diction">
+              <PropertyRef Name="idDictItem" />
+            </Principal>
+            <Dependent Role="DefParams">
+              <PropertyRef Name="idDictItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diction_Diction">
+          <End Role="Diction" Type="Self.Diction" Multiplicity="0..1" />
+          <End Role="Diction1" Type="Self.Diction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diction">
+              <PropertyRef Name="idDictItem" />
+            </Principal>
+            <Dependent Role="Diction1">
+              <PropertyRef Name="idParentDictItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_CalcPars_DefParams">
+          <End Role="DefParams" Type="Self.DefParams" Multiplicity="1" />
+          <End Role="SL_CalcPars" Type="Self.SL_CalcPars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefParams">
+              <PropertyRef Name="idDefParam" />
+            </Principal>
+            <Dependent Role="SL_CalcPars">
+              <PropertyRef Name="idDefParam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_CalcPars_SL_Calcs">
+          <End Role="SL_Calcs" Type="Self.SL_Calcs" Multiplicity="1" />
+          <End Role="SL_CalcPars" Type="Self.SL_CalcPars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SL_Calcs">
+              <PropertyRef Name="idCalcItem" />
+            </Principal>
+            <Dependent Role="SL_CalcPars">
+              <PropertyRef Name="idCalcItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_Calcs_Diction">
+          <End Role="Diction" Type="Self.Diction" Multiplicity="1" />
+          <End Role="SL_Calcs" Type="Self.SL_Calcs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diction">
+              <PropertyRef Name="idDictItem" />
+            </Principal>
+            <Dependent Role="SL_Calcs">
+              <PropertyRef Name="idDictItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_Calcs_SL_Calcs">
+          <End Role="SL_Calcs" Type="Self.SL_Calcs" Multiplicity="0..1" />
+          <End Role="SL_Calcs1" Type="Self.SL_Calcs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SL_Calcs">
+              <PropertyRef Name="idCalcItem" />
+            </Principal>
+            <Dependent Role="SL_Calcs1">
+              <PropertyRef Name="idParentCalcItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ShumCalcs_DBModelContainer">
+          <EntitySet Name="DefParams" EntityType="Self.DefParams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diction" EntityType="Self.Diction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SL_CalcPars" EntityType="Self.SL_CalcPars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SL_Calcs" EntityType="Self.SL_Calcs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DefParams_Diction" Association="Self.FK_DefParams_Diction">
+            <End Role="Diction" EntitySet="Diction" />
+            <End Role="DefParams" EntitySet="DefParams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diction_Diction" Association="Self.FK_Diction_Diction">
+            <End Role="Diction" EntitySet="Diction" />
+            <End Role="Diction1" EntitySet="Diction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_CalcPars_DefParams" Association="Self.FK_SL_CalcPars_DefParams">
+            <End Role="DefParams" EntitySet="DefParams" />
+            <End Role="SL_CalcPars" EntitySet="SL_CalcPars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_CalcPars_SL_Calcs" Association="Self.FK_SL_CalcPars_SL_Calcs">
+            <End Role="SL_Calcs" EntitySet="SL_Calcs" />
+            <End Role="SL_CalcPars" EntitySet="SL_CalcPars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_Calcs_Diction" Association="Self.FK_SL_Calcs_Diction">
+            <End Role="Diction" EntitySet="Diction" />
+            <End Role="SL_Calcs" EntitySet="SL_Calcs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_Calcs_SL_Calcs" Association="Self.FK_SL_Calcs_SL_Calcs">
+            <End Role="SL_Calcs" EntitySet="SL_Calcs" />
+            <End Role="SL_Calcs1" EntitySet="SL_Calcs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShumCalcs_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DefParams">
+          <Key>
+            <PropertyRef Name="idDefParam" />
+          </Key>
+          <Property Name="idDefParam" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDictItem" Type="Int32" Nullable="false" />
+          <Property Name="nameParam" Type="String" MaxLength="200" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="codeParam" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="sortParam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="unitParam" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="valuesParam" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Diction" Relationship="Self.FK_DefParams_Diction" FromRole="DefParams" ToRole="Diction" />
+          <NavigationProperty Name="SL_CalcPars" Relationship="Self.FK_SL_CalcPars_DefParams" FromRole="DefParams" ToRole="SL_CalcPars" />
+        </EntityType>
+        <EntityType Name="Diction">
+          <Key>
+            <PropertyRef Name="idDictItem" />
+          </Key>
+          <Property Name="idDictItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameDictItem" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="imageDictItem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idParentDictItem" Type="Int32" />
+          <NavigationProperty Name="DefParams" Relationship="Self.FK_DefParams_Diction" FromRole="Diction" ToRole="DefParams" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_Diction_Diction" FromRole="Diction" ToRole="Diction1" />
+          <NavigationProperty Name="Father" Relationship="Self.FK_Diction_Diction" FromRole="Diction1" ToRole="Diction" />
+          <NavigationProperty Name="SL_Calcs" Relationship="Self.FK_SL_Calcs_Diction" FromRole="Diction" ToRole="SL_Calcs" />
+        </EntityType>
+        <EntityType Name="SL_CalcPars">
+          <Key>
+            <PropertyRef Name="idCalc_par" />
+          </Key>
+          <Property Name="idCalc_par" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCalcItem" Type="Int32" Nullable="false" />
+          <Property Name="idDefParam" Type="Int32" Nullable="false" />
+          <Property Name="valueCalc_par" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DefParams" Relationship="Self.FK_SL_CalcPars_DefParams" FromRole="SL_CalcPars" ToRole="DefParams" />
+          <NavigationProperty Name="SL_Calcs" Relationship="Self.FK_SL_CalcPars_SL_Calcs" FromRole="SL_CalcPars" ToRole="SL_Calcs" />
+        </EntityType>
+        <EntityType Name="SL_Calcs">
+          <Key>
+            <PropertyRef Name="idCalcItem" />
+          </Key>
+          <Property Name="idCalcItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameCalcItem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idDictItem" Type="Int32" Nullable="false" />
+          <Property Name="idParentCalcItem" Type="Int32" />
+          <NavigationProperty Name="Diction" Relationship="Self.FK_SL_Calcs_Diction" FromRole="SL_Calcs" ToRole="Diction" />
+          <NavigationProperty Name="SL_CalcPars" Relationship="Self.FK_SL_CalcPars_SL_Calcs" FromRole="SL_Calcs" ToRole="SL_CalcPars" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_SL_Calcs_SL_Calcs" FromRole="SL_Calcs" ToRole="SL_Calcs1" />
+          <NavigationProperty Name="Father" Relationship="Self.FK_SL_Calcs_SL_Calcs" FromRole="SL_Calcs1" ToRole="SL_Calcs" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_DefParams_Diction">
+          <End Role="Diction" Type="Self.Diction" Multiplicity="1" />
+          <End Role="DefParams" Type="Self.DefParams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diction">
+              <PropertyRef Name="idDictItem" />
+            </Principal>
+            <Dependent Role="DefParams">
+              <PropertyRef Name="idDictItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_CalcPars_DefParams">
+          <End Role="DefParams" Type="Self.DefParams" Multiplicity="1" />
+          <End Role="SL_CalcPars" Type="Self.SL_CalcPars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefParams">
+              <PropertyRef Name="idDefParam" />
+            </Principal>
+            <Dependent Role="SL_CalcPars">
+              <PropertyRef Name="idDefParam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diction_Diction">
+          <End Role="Diction" Type="Self.Diction" Multiplicity="0..1" />
+          <End Role="Diction1" Type="Self.Diction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diction">
+              <PropertyRef Name="idDictItem" />
+            </Principal>
+            <Dependent Role="Diction1">
+              <PropertyRef Name="idParentDictItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_Calcs_Diction">
+          <End Role="Diction" Type="Self.Diction" Multiplicity="1" />
+          <End Role="SL_Calcs" Type="Self.SL_Calcs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diction">
+              <PropertyRef Name="idDictItem" />
+            </Principal>
+            <Dependent Role="SL_Calcs">
+              <PropertyRef Name="idDictItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_CalcPars_SL_Calcs">
+          <End Role="SL_Calcs" Type="Self.SL_Calcs" Multiplicity="1" />
+          <End Role="SL_CalcPars" Type="Self.SL_CalcPars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SL_Calcs">
+              <PropertyRef Name="idCalcItem" />
+            </Principal>
+            <Dependent Role="SL_CalcPars">
+              <PropertyRef Name="idCalcItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SL_Calcs_SL_Calcs">
+          <End Role="SL_Calcs" Type="Self.SL_Calcs" Multiplicity="0..1" />
+          <End Role="SL_Calcs1" Type="Self.SL_Calcs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SL_Calcs">
+              <PropertyRef Name="idCalcItem" />
+            </Principal>
+            <Dependent Role="SL_Calcs1">
+              <PropertyRef Name="idParentCalcItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShumCalcs_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DefParams" EntityType="Self.DefParams" />
+          <EntitySet Name="Diction" EntityType="Self.Diction" />
+          <EntitySet Name="SL_CalcPars" EntityType="Self.SL_CalcPars" />
+          <EntitySet Name="SL_Calcs" EntityType="Self.SL_Calcs" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_DefParams_Diction" Association="Self.FK_DefParams_Diction">
+            <End Role="Diction" EntitySet="Diction" />
+            <End Role="DefParams" EntitySet="DefParams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_CalcPars_DefParams" Association="Self.FK_SL_CalcPars_DefParams">
+            <End Role="DefParams" EntitySet="DefParams" />
+            <End Role="SL_CalcPars" EntitySet="SL_CalcPars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diction_Diction" Association="Self.FK_Diction_Diction">
+            <End Role="Diction" EntitySet="Diction" />
+            <End Role="Diction1" EntitySet="Diction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_Calcs_Diction" Association="Self.FK_SL_Calcs_Diction">
+            <End Role="Diction" EntitySet="Diction" />
+            <End Role="SL_Calcs" EntitySet="SL_Calcs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_CalcPars_SL_Calcs" Association="Self.FK_SL_CalcPars_SL_Calcs">
+            <End Role="SL_Calcs" EntitySet="SL_Calcs" />
+            <End Role="SL_CalcPars" EntitySet="SL_CalcPars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SL_Calcs_SL_Calcs" Association="Self.FK_SL_Calcs_SL_Calcs">
+            <End Role="SL_Calcs" EntitySet="SL_Calcs" />
+            <End Role="SL_Calcs1" EntitySet="SL_Calcs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ShumCalcs_DBModelContainer" CdmEntityContainer="ShumCalcs_DBEntities">
+          <EntitySetMapping Name="DefParams">
+            <EntityTypeMapping TypeName="ShumCalcs_DBModel.DefParams">
+              <MappingFragment StoreEntitySet="DefParams">
+                <ScalarProperty Name="idDefParam" ColumnName="idDefParam" />
+                <ScalarProperty Name="idDictItem" ColumnName="idDictItem" />
+                <ScalarProperty Name="nameParam" ColumnName="nameParam" />
+                <ScalarProperty Name="codeParam" ColumnName="codeParam" />
+                <ScalarProperty Name="sortParam" ColumnName="sortParam" />
+                <ScalarProperty Name="unitParam" ColumnName="unitParam" />
+                <ScalarProperty Name="valuesParam" ColumnName="valuesParam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diction">
+            <EntityTypeMapping TypeName="ShumCalcs_DBModel.Diction">
+              <MappingFragment StoreEntitySet="Diction">
+                <ScalarProperty Name="idDictItem" ColumnName="idDictItem" />
+                <ScalarProperty Name="nameDictItem" ColumnName="nameDictItem" />
+                <ScalarProperty Name="imageDictItem" ColumnName="imageDictItem" />
+                <ScalarProperty Name="idParentDictItem" ColumnName="idParentDictItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SL_CalcPars">
+            <EntityTypeMapping TypeName="ShumCalcs_DBModel.SL_CalcPars">
+              <MappingFragment StoreEntitySet="SL_CalcPars">
+                <ScalarProperty Name="idCalc_par" ColumnName="idCalc_par" />
+                <ScalarProperty Name="idCalcItem" ColumnName="idCalcItem" />
+                <ScalarProperty Name="idDefParam" ColumnName="idDefParam" />
+                <ScalarProperty Name="valueCalc_par" ColumnName="valueCalc_par" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SL_Calcs">
+            <EntityTypeMapping TypeName="ShumCalcs_DBModel.SL_Calcs">
+              <MappingFragment StoreEntitySet="SL_Calcs">
+                <ScalarProperty Name="idCalcItem" ColumnName="idCalcItem" />
+                <ScalarProperty Name="nameCalcItem" ColumnName="nameCalcItem" />
+                <ScalarProperty Name="idDictItem" ColumnName="idDictItem" />
+                <ScalarProperty Name="idParentCalcItem" ColumnName="idParentCalcItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShumCalcs_DBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

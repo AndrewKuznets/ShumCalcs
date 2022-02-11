@@ -1,0 +1,16 @@
+﻿<Window x:Class="ShumCalcs.WinNewSprav"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShumCalcs"
+        mc:Ignorable="d"
+        Title="Добавить новый справочник" Height="300" Width="700" Loaded="Window_Loaded" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,0">
+        <Label x:Name="lblNewSprav" Content="Имя справочника" HorizontalAlignment="Left" Margin="66,74,0,0" VerticalAlignment="Top" Width="176" FontSize="16" FontWeight="Bold"/>
+        <ComboBox x:Name="cmbNewSprav" HorizontalAlignment="Left" Margin="276,74,0,0" VerticalAlignment="Top" Width="392" Height="32" SelectionChanged="cmbNewSprav_SelectionChanged"/>
+        <Button x:Name="btnSave" Content="Принять" HorizontalAlignment="Left" Margin="332,186,0,0" VerticalAlignment="Top" Width="99" Height="34" FontSize="14" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="Покинуть" HorizontalAlignment="Left" Margin="505,186,0,0" VerticalAlignment="Top" Width="108" Height="34" FontSize="14" Click="btnCancel_Click" RenderTransformOrigin="-0.383,0.428"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,40 @@
+﻿<Window x:Class="ShumCalcs.EditCalc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Конструктор процедуры расчёта параметра" Height="588" Width="1150" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" MinWidth="1000" MinHeight="596">
+    <Grid>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="431*"/>
+            <ColumnDefinition Width="713*"/>
+        </Grid.ColumnDefinitions>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="10,18,10,3">
+            <ListBox x:Name="listBoxParams" DisplayMemberPath="Name" Margin="10,28,619,9.2" SelectionChanged="listBoxParams_SelectionChanged" MouseDoubleClick="listBoxParams_MouseDoubleClick"/>
+            <ListBox x:Name="listBoxValue" Margin="0,28,238,9.2" MouseDoubleClick="listBoxValue_MouseDoubleClick" HorizontalAlignment="Right" Width="376"/>
+            <ListBox x:Name="listBoxOperations" Margin="0,28,10,14.2" MouseDoubleClick="listBoxOperations_MouseDoubleClick" HorizontalAlignment="Right" Width="223"/>
+            <Label x:Name="label" Content="Параметры" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold"/>
+            <Label x:Name="label_Copy" Content="Значения параметра" Margin="0,0,433,0" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="172" />
+            <Button x:Name="btnDoCalc" Visibility="Hidden" Content="Расчёт" HorizontalAlignment="Left" Margin="1039,407,0,0" VerticalAlignment="Top" Width="75" Click="btnDoCalc_Click"/>
+        </Grid>
+        <Label x:Name="label_Copy1" Content="Операторы" Margin="0,18,139,0" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="94" Height="26"/>
+        <TextBox x:Name="textBoxProcedura" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5,32.4,104,6.4" TextWrapping="Wrap" SelectionChanged="textBoxProcedura_SelectionChanged"   Grid.Row="2"   />
+        <Label x:Name="lblProcText" Content="Текст процедуры" HorizontalAlignment="Left" Margin="17,5.4,0,0" Width="113" FontWeight="Bold" RenderTransformOrigin="0.311,2.677" Grid.Row="2" Height="24" VerticalAlignment="Top"/>
+        <Label x:Name="NameParametr" Content="Наименование параметра:" Margin="160,4.4,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="886" Grid.Row="2" Height="25"/>
+        <Button x:Name="buttonCanc" Content="Отмена" Margin="0,0,19,36.4" Click="buttonCanc_Click" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom" RenderTransformOrigin="0.683,4.327" Grid.Row="2"/>
+        <Button x:Name="buttonOk" Content="Сохранить" Margin="0,0,19,67.4" VerticalAlignment="Bottom" Click="buttonOk_Click" HorizontalAlignment="Right" Width="75" Grid.Row="2" Height="19"/>
+        <Button x:Name="button" Content="Проверить" Margin="0,0,19,101.4" VerticalAlignment="Bottom" Click="button_Click" HorizontalAlignment="Right" Width="75" Grid.Row="2" Height="19"/>
+        <!--Горизонтальный сплиттер-->
+        <GridSplitter x:Name="gridSplitterGor"  Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                      Background="#FF1BD65A" Height="3"  RenderTransformOrigin="0.5,0.5"/>
+        <Label x:Name="labelPosic" Content="" Margin="0,0,9,145.4" HorizontalAlignment="Right" Width="70" Height="26" VerticalAlignment="Bottom" RenderTransformOrigin="0.653,2.754" Grid.Row="2" Background="#FFADF37A" />
+
+    </Grid>
+</Window>

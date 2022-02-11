@@ -1,0 +1,77 @@
+﻿<Window x:Class="ShumCalcs.WinOneParamDef"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:local="clr-namespace:ShumCalcs"
+       Title="Определение параметра из раздела Словаря" WindowStartupLocation="CenterScreen" Height="519.6" SizeToContent="Height" Loaded="Window_Loaded">
+
+    <Grid Margin="0,30,-0.4,0.4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="415*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="labelTitle" Content="Определение параметра из раздела " Margin="50,16,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="32" HorizontalAlignment="Left" Width="293"/>
+        <Label x:Name="lblParName" Content="Имя параметра" HorizontalAlignment="Left" Margin="84,76,0,0" VerticalAlignment="Top" Width="103"  Height="26" FontWeight="Bold"/>
+        <Label x:Name="lblParType" Content="Тип параметра" HorizontalAlignment="Left" Margin="84,159,0,0" VerticalAlignment="Top" Width="103" Height="26" FontWeight="Bold"/>
+        <Label x:Name="lblParCode" Content="Код параметра" HorizontalAlignment="Left" Margin="84,119,0,0" VerticalAlignment="Top" Width="103"  Height="26" FontWeight="Bold"/>
+        <Label x:Name="lblParUnit" Content="Единицы измерений" HorizontalAlignment="Left" Margin="50,198,0,0" VerticalAlignment="Top" Width="137"  Height="26" FontWeight="Bold"/>
+        <Label x:Name="lblParName_Copy" Content="Возможные значения" HorizontalAlignment="Left" Margin="28,232,0,0" VerticalAlignment="Top" Width="143"  Height="27" FontWeight="Bold"/>
+        <TextBox x:Name="txtParValues"  Margin="10,260,8.6,52" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Loaded="txtParValues_Loaded"  Grid.ColumnSpan="2" Text="&#x9;&#x9;&#x9;"/>
+        <Button x:Name="btnSaveParDef" Content="Сохранить определение параметра " HorizontalAlignment="Left" Margin="33,0,0,5" VerticalAlignment="Bottom" Width="292"  Cursor="Pen" Click="btnSaveParDef_Click" Height="32"/>
+        <Button x:Name="btnGoOut" Content="Покинуть" Margin="0,0,18.6,5" VerticalAlignment="Bottom" IsCancel="True" Cursor="Hand" ToolTip="Выйти без сохранения" Grid.Column="1" Height="32" HorizontalAlignment="Right" Width="75"/>
+        <TextBox x:Name="txtParName" Height="23" Margin="189,78,27,0" TextWrapping="Wrap" VerticalAlignment="Top" SpellCheck.IsEnabled="True" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtParCode" HorizontalAlignment="Left" Height="23" Margin="189,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"  />
+        <ComboBox x:Name="cmbParType" HorizontalAlignment="Left" Margin="189,163,0,0" VerticalAlignment="Top" Width="142" IsReadOnly="True" SelectionChanged="cmbParType_SelectionChanged" SelectedIndex="2" Height="22">
+            <ComboBoxItem Content="Число" IsSelected="True"/>
+            <ComboBoxItem Content="Строка" HorizontalAlignment="Left" Width="140.8"/>
+            <ComboBoxItem Content="Процедура" HorizontalAlignment="Left" Width="140.8"/>
+            <ComboBoxItem Content="Документ" HorizontalAlignment="Left" Width="140.8" IsSelected="True"/>
+            <ComboBoxItem Content="Папка" HorizontalAlignment="Left"/>
+            <ComboBoxItem Content="Ссылка" HorizontalAlignment="Left"/>
+            <ComboBoxItem Content="Расчёт"/>
+            <ComboBoxItem Content="Список ID"/>
+        </ComboBox>
+        <ComboBox x:Name="cmbParUnit" HorizontalAlignment="Left" Margin="189,202,0,0" VerticalAlignment="Top" Width="142" SelectedIndex="6" Height="22">
+            <ComboBoxItem Content="м"/>
+            <ComboBoxItem Content="мм"/>
+            <ComboBoxItem Content="т"/>
+            <ComboBoxItem Content="кг"/>
+            <ComboBoxItem Content="шт"/>
+            <ComboBoxItem Content="градусы"/>
+            <ComboBoxItem Content="чел"/>
+            <ComboBoxItem Content="час"/>
+            <ComboBoxItem Content="час/год"/>
+            <ComboBoxItem Content="чел-ч/т"/>
+            <ComboBoxItem Content="чел-ч"/>
+            <ComboBoxItem Content="тыс-чел-ч"/>
+            <ComboBoxItem Content="балл"/>
+            <ComboBoxItem Content="м2"/>
+            <ComboBoxItem Content="т/чел-ч"/>
+            <ComboBoxItem Content="т/м2"/>
+            <ComboBoxItem Content="руб/чел-ч"/>
+            <ComboBoxItem Content="$/чел-ч"/>
+            <ComboBoxItem Content="руб"/>
+            <ComboBoxItem Content="$"/>
+            <ComboBoxItem Content="руб/т"/>
+            <ComboBoxItem Content="кВт"/>
+            <ComboBoxItem Content="узл"/>
+            <ComboBoxItem Content="%"/>
+            <ComboBoxItem Content="год"/>
+            <ComboBoxItem Content="мес"/>
+            <ComboBoxItem Content="" HorizontalAlignment="Left" Width="140.8"/>
+        </ComboBox>
+        <Label x:Name="lblNameDictionItem" Content="NameDictionItem" Margin="343,16,16.6,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" FontSize="18.667" Height="35"/>
+        <Button x:Name="btnProcConstr" Content="Конструктор процедур" Margin="352,163,0,0" VerticalAlignment="Top" Click="btnProcConstr_Click" HorizontalAlignment="Left" Width="146" Height="23" Grid.ColumnSpan="2"/>
+        <Label x:Name="LblUnits" Content="__" HorizontalAlignment="Left" Margin="336,198,0,0" VerticalAlignment="Top" Height="26" Width="69"/>
+        <ComboBox x:Name="cmbDirectRef" HorizontalAlignment="Left" Margin="343,168,0,0" VerticalAlignment="Top" Width="191" IsReadOnly="True" SelectedIndex="-1" Height="22"/>
+        <Label x:Name="lblOnPart" Content="На справочник" HorizontalAlignment="Left" Margin="343,137,0,0" VerticalAlignment="Top" Width="103"  Height="26" FontWeight="Bold" RenderTransformOrigin="1.157,0.577"/>
+
+    </Grid>
+</Window>
